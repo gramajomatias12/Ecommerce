@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: content-box;
+}
+
+body {
+  font-family: 'Helvetica', sans-serif;
+  margin: 0;
+  background-color: var(--color-bg);
+}
+
+h1,
+h2,
+h3,
+p {
+  color: var(--color-text-primary);
+  font-size: 16px;
+}
+
+:root {
+  /* 🎨 Colores principales */
+  --color-primary: #6366F1;
+  --color-secondary: #8B5CF6;
+  --color-accent: #22C55E;
+
+  /* 🖤 Backgrounds */
+  --color-bg: #0F172A;
+  --color-surface: #1E293B;
+
+  /* 📝 Textos */
+  --color-text-primary: #F8FAFC;
+  --color-text-secondary: #94A3B8;
+
+  /* ⚠️ Estados */
+  --color-success: #22C55E;
+  --color-error: #EF4444;
+  --color-warning: #F59E0B;
+
+  /* 🔲 Bordes */
+  --color-border: #334155;
+
+  /* ✨ Extras */
+  --color-hover: #4F46E5;
+  --color-disabled: #64748B;
+}

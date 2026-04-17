@@ -1,0 +1,13 @@
+h2 {
+  color: var(--color-text-primary);
+  font-size: 24px;
+  margin: 16px;
+  text-align: center;
+}
+
+.footer{
+    background-color: var(--color-primary);
+    padding: 16px;
+    text-align: center;
+    margin-top: 32px;
+}
