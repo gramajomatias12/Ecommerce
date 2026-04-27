@@ -7,7 +7,7 @@ export function Layout({ children }) {
         <div>
             <Header/>
             
-            <main>
+            <main style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
                 {children}
             </main>
             
