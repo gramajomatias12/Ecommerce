@@ -22,9 +22,49 @@
 }
 
 .tarjeta-producto__nombre {
-  margin: 12px 0 8px;
+  margin: 0;
   font-size: 1.1rem;
   color: var(--color-text-primary);
+  text-align: center;
+}
+
+.tarjeta-producto__nombre-favorito {
+  margin: 12px 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.tarjeta-producto__btn--favorito {
+  position: absolute;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1.45rem;
+  line-height: 1;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.tarjeta-producto__btn--favorito:hover {
+  transform: scale(1.08);
+}
+
+.favorito-activo {
+  color: #f4c430;
+  -webkit-text-stroke: 0;
+}
+
+.favorito-inactivo {
+  color: transparent;
+  -webkit-text-stroke: 1.2px #f4c430;
 }
 
 .tarjeta-producto__precio {
@@ -70,7 +110,10 @@
 }
 
 .tarjeta-producto__btn--agregar {
-  width: 100%;
+  display: block;
+  float: none;
+  margin: 0 auto;
+  text-align: center;
   padding: 8px;
   border: none;
   border-radius: 8px;

@@ -4,24 +4,38 @@ import { useState } from 'react';
 function Product({ imagen, nombre, precio, stock }) {
 
   const [cantidad, setCantidad] = useState(0);
+  const [esFavorito, setEsFavorito] = useState(false);
+
   const incrementar = () => {
     if (cantidad < stock) {
       setCantidad(cantidad + 1);
     }
   };
   const decrementar = () => {
-    if (cantidad > 1) {
+    if (cantidad > 0) {
       setCantidad(cantidad - 1);
     }
   };
   const agregarAlCarrito = () => {
     alert(`Agregaste ${cantidad} unidades de ${nombre} al carrito.`);
   }
+  
+  const marcarComoFavorito = () => {
+    setEsFavorito(!esFavorito);
+  };
 
   return (
     <div className="tarjeta-producto">
       <img className="tarjeta-producto__imagen" src={imagen} alt={nombre} />
-      <h3 className="tarjeta-producto__nombre">{nombre}</h3>
+      <div className="tarjeta-producto__nombre-favorito">
+        <h3 className="tarjeta-producto__nombre">{nombre}</h3>
+        <span 
+          className={`tarjeta-producto__btn--favorito ${esFavorito ? 'favorito-activo' : 'favorito-inactivo'}`}
+          onClick={marcarComoFavorito}
+        >
+          ★
+        </span>
+      </div>
 
       <p className="tarjeta-producto__precio">${precio}</p>
 
