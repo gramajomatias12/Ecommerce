@@ -1,12 +1,38 @@
 import './ProductListContainer.css';
 import { ProductList } from "../ProductList/ProductList";
 
+import React, { useState, useEffect } from 'react';
 export function ProductListContainer({ Mensaje }) {
-    const productos = [
-        { id: '1234', nombre: 'Notebook Pro', precio: 12000, stock: 15, imagen: 'https://picsum.photos/200/300?random=1' },
-        { id: '2344', nombre: 'Monitor Curvo', precio: 450000, stock: 25, imagen: 'https://picsum.photos/200/300?random=2' },
-        { id: '2545', nombre: 'Teclado Mecánico', precio: 15000, stock: 50, imagen: 'https://picsum.photos/200/300?random=3' },];
-   
+
+    const [productos, setProductos] = useState([]);
+    const [error, setError] = useState(null);
+    const [cargando, setCargando] = useState(true);
+    useEffect(() => {
+        fetch('/data/Products.json')
+            .then((respuesta) => {
+                if (!respuesta.ok) {
+                    throw new Error('No se pudo cargar la información de los productos');
+                }
+                return respuesta.json();
+            })
+            .then((datos) => {
+                setProductos(datos);
+            })
+            .catch((error) => {
+                setError(error.message);
+            })
+            .finally(() => {
+                setCargando(false);
+            });
+    }, []);
+
+    if (cargando) {
+        return <p>Cargando productos, por favor espere...</p>;
+    }
+    if (error) {
+        return <p>Error: {error}</p>;
+    }
+
     return (
         <div >
             <h2>{Mensaje}</h2>

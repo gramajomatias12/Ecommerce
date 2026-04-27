@@ -1,0 +1,58 @@
+[
+{
+"id": 1,
+"nombre": "Camara Instantánea",
+"precio": 85000,
+"stock":22,
+"imagen": "/images/CamaraInstantanea.png"
+},
+{
+"id": 2,
+"nombre": "Camara Nikon",
+"precio": 97500,
+"stock":2,
+"imagen": "/images/CamaraNikon.webp"
+},
+{
+"id": 3,
+"nombre": "Monitor Curvo",
+"precio": 110000,
+"stock":2,
+"imagen": "/images/MonitorCurvo.jpg"
+},
+{
+"id": 4,
+"nombre": "Monitor Asus",
+"precio": 95000,
+"stock":5,
+"imagen": "/images/MonitorAsus.jpg"
+},
+{
+"id": 5,
+"nombre": "Mouse Gamer",
+"precio": 18500,
+"stock":30,
+"imagen": "/images/Mouse.jpg"
+},
+{
+"id": 6,
+"nombre": "Notebook Pro",
+"precio": 320000,
+"stock":8,
+"imagen": "/images/NotebookPro.jpeg"
+},
+{
+"id": 7,
+"nombre": "Teclado Mecánico",
+"precio": 45000,
+"stock":15,
+"imagen": "/images/TecladoMecanico.jpg"
+},
+{
+"id": 8,
+"nombre": "Windows 11",
+"precio": 12000,
+"stock":50,
+"imagen": "/images/windows11.jpg"
+}
+]
