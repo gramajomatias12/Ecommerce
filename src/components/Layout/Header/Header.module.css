@@ -5,7 +5,7 @@
 }
 
 .title {
-    font-size: 24px;
+    font-size: clamp(20px, 5vw, 24px);
     font-weight: bold;
     color: var(--color-text-primary);
     margin-bottom: 16px;
@@ -21,7 +21,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 12px;
+    gap: 6px;
     margin: 0;
     padding: 0;
     flex-wrap: wrap;
@@ -29,11 +29,12 @@
 
 .navList li a {
     display: inline-block;
-    padding: 10px 16px;
+    padding: 8px 12px;
     border-radius: 999px;
     color: var(--color-text-primary);
     text-decoration: none;
     font-weight: 600;
+    font-size: clamp(14px, 2.5vw, 16px);
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
