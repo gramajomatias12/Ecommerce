@@ -1,7 +1,7 @@
 import React from 'react';
 import './FormularioProducto.css';
 
-export function FormularioProducto({ datosForm, manejarCambio, manejarEnvio, manejarCambioImagen }) {
+export function FormularioProducto({ datosForm, manejarCambio, manejarEnvio, manejarCambioImagen, loading }) {
     return (
         <form className="form" onSubmit={manejarEnvio}>
             <h3>Agregar Nuevo Producto</h3>
@@ -48,7 +48,9 @@ export function FormularioProducto({ datosForm, manejarCambio, manejarEnvio, man
                 />
             </div>
 
-            <button type="submit">Guardar Producto</button>
+            <button type="submit" disabled={loading}>
+                {loading ? 'Guardando...' : 'Guardar Producto'}
+            </button>
         </form>
     );
 }

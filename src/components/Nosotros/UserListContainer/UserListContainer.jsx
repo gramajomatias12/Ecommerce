@@ -32,7 +32,7 @@ export function UserListContainer({ Mensaje }) {
     }
 
     if (error) {
-        return <p className="users-section__status users-section__status--error">Error: {error}</p>;
+        return <p className="users-section__status users-section__status--error">Error de carga: {error}</p>;
     }
 
     return (

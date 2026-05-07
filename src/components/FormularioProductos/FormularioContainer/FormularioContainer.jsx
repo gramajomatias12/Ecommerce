@@ -6,10 +6,11 @@ export function FormularioContainer() {
         nombre: '',
         precio: '',
         stock: ''
-        // urlImagen: ''
     });
 
     const [imagenFile, setImagenFile] = useState(null);
+
+    const [loading, setLoading] = useState(false);
 
     const manejarCambio = (evento) => {
         const { name, value } = evento.target;
@@ -19,13 +20,12 @@ export function FormularioContainer() {
         });
     };
 
-    // const manejarEnvio = (evento) => {
-    //     evento.preventDefault();
-    //     console.log('Enviando los siguientes datos a la API:', datosForm);
-    // };
-
     const manejarCambioImagen = (evento) => {
         setImagenFile(evento.target.files[0]);
+    };
+
+    const manejarLoading = (estado) => {
+        setLoading(estado);
     };
 
     const manejarEnvio = async (evento) => {
@@ -40,7 +40,8 @@ export function FormularioContainer() {
         const formData = new FormData();
         formData.append('image', imagenFile);
         try {
-            console.log("Subiendo imagen a Imgbb...");
+            //console.log("Subiendo imagen a Imgbb...");
+            manejarLoading(true);
             const respuestaImgbb = await
                 fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
                     method: 'POST',
@@ -64,6 +65,8 @@ export function FormularioContainer() {
         } catch (error) {
             console.error("Error en el proceso de envío:", error);
             alert("Hubo un error al subir la imagen. Por favor, intentá de nuevo.");
+        } finally {
+            manejarLoading(false);
         }
     };
 
@@ -73,6 +76,7 @@ export function FormularioContainer() {
             manejarCambio={manejarCambio}
             manejarEnvio={manejarEnvio}
             manejarCambioImagen={manejarCambioImagen}
+            loading={loading}
         />
     );
 }
