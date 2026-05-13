@@ -1,17 +1,38 @@
 import styles from './Header.module.css';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function Header() {
     return (
         <header className={styles.header}>
-            <h1 className={styles.title}>Bienvenidos a Digital Store</h1>
+            <div className={styles.brandBlock}>
+                <p className={styles.kicker}>NexoTech</p>
+                <h1 className={styles.title}>Tecnologia y accesorios para tu setup ideal</h1>
+            </div>
 
             <nav className={styles.nav}>
                 <ul className={styles.navList}>
-                    <li><Link to="/">Inicio</Link></li>
-                    <li><Link to="/productos">Productos</Link></li>
+                    <li>
+                        <NavLink to="/" className={({ isActive }) => isActive ? styles.activeLink : ''}>
+                            Inicio
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/productos" className={({ isActive }) => isActive ? styles.activeLink : ''}>
+                            Productos
+                        </NavLink>
+                    </li>
                     {/* <li><Link to="/destacados">Destacados</Link></li> */}
-                    <li><Link to="/alta">Alta de Productos</Link></li>
+                    <li>
+                        <NavLink to="/alta" className={({ isActive }) => isActive ? styles.activeLink : ''}>
+                            Alta de Productos
+                        </NavLink>
+                    </li>
+
+                        <li>
+                        <NavLink to="/nosotros" className={({ isActive }) => isActive ? styles.activeLink : ''}>
+                            Nosotros
+                        </NavLink>
+                    </li>
                 </ul>
             </nav>
         </header>

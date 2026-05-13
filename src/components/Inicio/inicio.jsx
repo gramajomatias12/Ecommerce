@@ -7,7 +7,7 @@ function Inicio() {
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
-          <h1 className="hero-title">Bienvenido a TalentoTech</h1>
+          <h1 className="hero-title">Bienvenido a NexoTech</h1>
           <p className="hero-subtitle">Descubre los mejores productos de tecnología a los mejores precios</p>
           <Link to="/productos" className="hero-btn">Ver Productos</Link>
         </div>

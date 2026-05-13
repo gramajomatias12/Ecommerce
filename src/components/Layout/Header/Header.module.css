@@ -1,14 +1,37 @@
 .header {
-    background-color: var(--color-primary);
-    padding: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    backdrop-filter: blur(10px);
+    background:
+        linear-gradient(120deg, rgba(99, 102, 241, 0.38), rgba(79, 70, 229, 0.2)),
+        rgba(15, 23, 42, 0.8);
     text-align: center;
 }
 
+.brandBlock {
+    max-width: 900px;
+    margin: 0 auto 14px;
+}
+
+.kicker {
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
 .title {
-    font-size: clamp(20px, 5vw, 24px);
-    font-weight: bold;
+    font-size: clamp(22px, 5vw, 32px);
+    font-weight: 800;
+    line-height: 1.1;
     color: var(--color-text-primary);
-    margin-bottom: 16px;
+    margin: 0;
+    text-wrap: balance;
 }
 
 .nav {
@@ -21,7 +44,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 6px;
+    gap: 10px;
     margin: 0;
     padding: 0;
     flex-wrap: wrap;
@@ -29,16 +52,42 @@
 
 .navList li a {
     display: inline-block;
-    padding: 8px 12px;
+    padding: 10px 14px;
     border-radius: 999px;
     color: var(--color-text-primary);
     text-decoration: none;
-    font-weight: 600;
-    font-size: clamp(14px, 2.5vw, 16px);
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    font-weight: 700;
+    font-size: clamp(14px, 2.5vw, 15px);
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    background: rgba(30, 41, 59, 0.55);
+    transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
 
 .navList li a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-1px);
+    background-color: rgba(99, 102, 241, 0.35);
+    border-color: rgba(248, 250, 252, 0.3);
+    transform: translateY(-2px);
+}
+
+.activeLink {
+    background-color: rgba(99, 102, 241, 0.45) !important;
+    border-color: rgba(248, 250, 252, 0.7) !important;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 16px 14px;
+    }
+
+    .brandBlock {
+        margin-bottom: 12px;
+    }
+
+    .navList {
+        gap: 8px;
+    }
+
+    .navList li a {
+        padding: 8px 12px;
+    }
 }

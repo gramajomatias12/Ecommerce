@@ -1,6 +1,6 @@
-# 🛒 Digital Store - E-commerce de Productos Digitales
+# 🛒 NexoTech - E-commerce de Tecnologia
 
-Aplicación web de e-commerce desarrollada con React, donde los usuarios pueden explorar, comprar y descargar productos digitales como cursos, ebooks y plantillas.
+Aplicacion web de e-commerce desarrollada con React, donde los usuarios pueden explorar productos de tecnologia como camaras, monitores, notebooks, perifericos y software.
 
 ## 🚀 Objetivo del proyecto
 

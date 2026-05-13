@@ -18,6 +18,8 @@ function App() {
         <Route path="/alta" element={<FormularioContainer />} />
 
         <Route path="/producto/:id" element={<ProductoDetalle />} />
+
+        <Route path="/nosotros" element={<UserListContainer />} />
       </Route>
     </Routes>);
 }
