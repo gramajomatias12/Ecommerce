@@ -1,7 +1,8 @@
 import './Product.css';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-function Product({ imagen, nombre, precio, stock }) {
+function Product({ id, imagen, nombre, precio, stock }) {
 
   const [cantidad, setCantidad] = useState(0);
   const [esFavorito, setEsFavorito] = useState(false);
@@ -17,7 +18,7 @@ function Product({ imagen, nombre, precio, stock }) {
     }
   };
   const agregarAlCarrito = () => {
-    alert(`Agregaste ${cantidad} unidades de ${nombre} al carrito.`);
+    alert(`✅ Agregaste ${cantidad} ${cantidad === 1 ? 'unidad' : 'unidades'} de ${nombre} al carrito`);
   }
   
   const marcarComoFavorito = () => {
@@ -26,7 +27,8 @@ function Product({ imagen, nombre, precio, stock }) {
 
   return (
     <div className="tarjeta-producto">
-      <img className="tarjeta-producto__imagen" src={imagen} alt={nombre} />
+      <Link to={`/producto/${id}`}>
+      <img className="tarjeta-producto__imagen" src={imagen} alt={nombre} /></Link>
       <div className="tarjeta-producto__nombre-favorito">
         <h3 className="tarjeta-producto__nombre">{nombre}</h3>
         <span 
