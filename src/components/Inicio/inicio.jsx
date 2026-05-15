@@ -45,7 +45,7 @@ function Inicio() {
         <div className="promocion-content">
           <h2>Oferta Especial del Mes</h2>
           <p>Descuento de hasta 20% en productos seleccionados</p>
-          <Link to="/productos" className="promocion-btn">Aprovechar Oferta</Link>
+          <Link to="/ProductosDestacados" className="promocion-btn">Aprovechar Oferta</Link>
         </div>
       </section>
 

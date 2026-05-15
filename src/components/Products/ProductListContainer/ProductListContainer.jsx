@@ -2,7 +2,7 @@ import './ProductListContainer.css';
 import { ProductList } from "../ProductList/ProductList";
 
 import React, { useState, useEffect } from 'react';
-export function ProductListContainer({ Mensaje }) {
+export function ProductListContainer({ Mensaje, destacados }) {
 
     const [productos, setProductos] = useState([]);
     const [error, setError] = useState(null);
@@ -33,10 +33,12 @@ export function ProductListContainer({ Mensaje }) {
         return <p>Error: {error}</p>;
     }
 
+    const productoAMostrar = destacados ? productos.filter(p => p.destacado) : productos;
+   
     return (
         <div >
             <h2>{Mensaje}</h2>
-            <ProductList productos={productos} />
+            <ProductList productos={productoAMostrar} />
         </div>
     );
 }

@@ -3,7 +3,7 @@
         "id": 1,
         "nombre": "Matías",
         "apellido": "Gramajo",
-        "email":"Matiasg@gamil.com",
+        "email": "Matiasg@gamil.com",
         "puesto": "Desarrollador Web",
         "foto": "/images/Matias.jpg"
     },
@@ -11,7 +11,7 @@
         "id": 2,
         "nombre": "Federico",
         "apellido": "García",
-        "email":"garcia@gamil.com",
+        "email": "garcia@gamil.com",
         "puesto": "Diseñador Gráfico",
         "foto": "/images/Federico.jpg"
     },
@@ -19,7 +19,7 @@
         "id": 3,
         "nombre": "Sofía",
         "apellido": "López",
-        "email":"lopezsofia@gmail.com",
+        "email": "lopezsofia@gmail.com",
         "puesto": "Desarroladora Backend",
         "foto": "/images/Sofia.jpg"
     },
@@ -27,7 +27,7 @@
         "id": 4,
         "nombre": "Lucas",
         "apellido": "Fernández",
-        "email":"lucas12@gamil.com",
+        "email": "lucas12@gamil.com",
         "puesto": "Tester de Software",
         "foto": "/images/Lucas.jpg"
     }

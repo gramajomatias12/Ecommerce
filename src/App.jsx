@@ -13,13 +13,17 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Inicio />} />
 
-        <Route path="/productos" element={<ProductListContainer Mensaje={"Productos destacados"} />} />
+        <Route path="/productos" element={<ProductListContainer Mensaje={"Productos"} />} />
 
         <Route path="/alta" element={<FormularioContainer />} />
 
         <Route path="/producto/:id" element={<ProductoDetalle />} />
 
         <Route path="/nosotros" element={<UserListContainer />} />
+
+        <Route path="/ProductosDestacados" element={<ProductListContainer Mensaje={"Productos Destacados"} destacados={true} />} />
+
+        <Route path="*" element={<h2>404 - Página no encontrada</h2>} />
       </Route>
     </Routes>);
 }
