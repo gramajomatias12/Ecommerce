@@ -5,6 +5,7 @@
         "precio": 85000,
         "stock": 22,
         "destacado": true,
+        "detalle": "La cámara instantánea es un dispositivo fotográfico que permite capturar imágenes y obtener una copia impresa de forma inmediata. Estas cámaras utilizan un proceso de revelado químico para producir una fotografía física en cuestión de segundos después de tomar la foto. Son populares por su capacidad para crear recuerdos tangibles al instante, lo que las hace ideales para eventos sociales, viajes y momentos especiales.",
         "imagen": "/images/CamaraInstantanea.png"
     },
     {
@@ -13,6 +14,7 @@
         "precio": 97500,
         "stock": 2,
         "destacado": false,
+        "detalle": "La cámara Nikon es conocida por su calidad de imagen y durabilidad. Ideal para fotógrafos profesionales y aficionados que buscan capturar momentos con precisión y claridad.",
         "imagen": "/images/CamaraNikon.webp"
     },
     {
@@ -21,6 +23,7 @@
         "precio": 110000,
         "stock": 2,
         "destacado": true,
+        "detalle": "El monitor curvo ofrece una experiencia inmersiva y envolvente, ideal para juegos y trabajo multitarea. Su diseño ergonómico reduce la fatiga visual y mejora la comodidad durante largas sesiones frente a la pantalla.",
         "imagen": "/images/MonitorCurvo.jpg"
     },
     {
@@ -29,6 +32,7 @@
         "precio": 95000,
         "stock": 5,
         "destacado": false,
+        "detalle": "El monitor Asus combina rendimiento y estilo, ofreciendo una calidad de imagen excepcional y características avanzadas para usuarios exigentes.",
         "imagen": "/images/MonitorAsus.jpg"
     },
     {
@@ -37,6 +41,7 @@
         "precio": 18500,
         "stock": 30,
         "destacado": false,
+        "detalle": "El mouse gamer ofrece precisión y comodidad para largas sesiones de juego, con botones programables y diseño ergonómico.",
         "imagen": "/images/Mouse.jpg"
     },
     {
@@ -45,6 +50,7 @@
         "precio": 320000,
         "stock": 8,
         "destacado": true,
+        "detalle": "La Notebook Pro ofrece un rendimiento excepcional para profesionales y estudiantes, con un diseño elegante y características avanzadas para productividad y entretenimiento.",
         "imagen": "/images/NotebookPro.jpeg"
     },
     {
@@ -53,6 +59,7 @@
         "precio": 45000,
         "stock": 15,
         "destacado": false,
+        "detalle": "El teclado mecánico proporciona una experiencia de escritura táctil y precisa, ideal para gamers y escritores que buscan comodidad y durabilidad.",
         "imagen": "/images/TecladoMecanico.jpg"
     },
     {
@@ -61,6 +68,7 @@
         "precio": 12000,
         "stock": 50,
         "destacado": false,
+        "detalle": "Windows 11 es el último sistema operativo de Microsoft, diseñado para ofrecer una experiencia de usuario moderna y fluida, con nuevas características y mejoras en rendimiento y seguridad.",
         "imagen": "/images/windows11.jpg"
     }
 ]

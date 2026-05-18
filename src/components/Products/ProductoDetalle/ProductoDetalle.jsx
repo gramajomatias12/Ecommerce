@@ -143,10 +143,10 @@ const ProductoDetalle = () => {
                         </button>
                     </div>
 
-                    {/* Descripción */}
-                    <div className="descripcion-section">
-                        <h3>Descripción del Producto</h3>
-                        <p>{producto.descripcion || 'Producto de tecnología de alta calidad. Disfruta de la mejor experiencia en tu hogar u oficina.'}</p>
+                    {/* Detalle del Producto */}
+                    <div className="detalle-section">
+                        <h3>Detalle del Producto</h3>
+                        <p>{producto.detalle}</p>
                     </div>
 
                     {/* Características */}

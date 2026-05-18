@@ -27,8 +27,7 @@ function Product({ id, imagen, nombre, precio, stock }) {
 
   return (
     <div className="tarjeta-producto">
-      <Link to={`/producto/${id}`}>
-      <img className="tarjeta-producto__imagen" src={imagen} alt={nombre} /></Link>
+      <img className="tarjeta-producto__imagen" src={imagen} alt={nombre} />
       <div className="tarjeta-producto__nombre-favorito">
         <h3 className="tarjeta-producto__nombre">{nombre}</h3>
         <span 
@@ -49,6 +48,7 @@ function Product({ id, imagen, nombre, precio, stock }) {
         <button className="tarjeta-producto__btn" onClick={incrementar}>+</button>
       </div>
       <button className="tarjeta-producto__btn--agregar" onClick={agregarAlCarrito}>Agregar al Carrito</button>
+      <Link className="tarjeta-producto__link-detalle" to={`/producto/${id}`}>Ver más info.</Link>
     </div>
 
   );

@@ -280,20 +280,20 @@
     cursor: not-allowed;
 }
 
-/* ===== DESCRIPCIÓN ===== */
-.descripcion-section {
+/* ===== DETALLE ===== */
+.detalle-section {
     padding-top: 20px;
     border-top: 1px solid #e2e8f0;
 }
 
-.descripcion-section h3 {
+.detalle-section h3 {
     font-size: 18px;
     color: var(--text-dark);
     margin: 0 0 15px 0;
     font-weight: 700;
 }
 
-.descripcion-section p {
+.detalle-section p {
     color: var(--text-light);
     line-height: 1.8;
     margin: 0;
