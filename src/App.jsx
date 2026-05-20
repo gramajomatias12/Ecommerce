@@ -6,6 +6,7 @@ import { FormularioContainer } from './components/FormularioProductos/Formulario
 import { Routes, Route } from 'react-router-dom';
 import ProductoDetalle from './components/Products/ProductoDetalle/ProductoDetalle';
 import Inicio from './components/Inicio/inicio';
+import Cart from './components/Cart/Cart';
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
         <Route path="/nosotros" element={<UserListContainer />} />
 
         <Route path="/ProductosDestacados" element={<ProductListContainer Mensaje={"Productos Destacados"} destacados={true} />} />
+
+        <Route path="/carrito" element={<Cart />} />
 
         <Route path="*" element={<h2>404 - Página no encontrada</h2>} />
       </Route>

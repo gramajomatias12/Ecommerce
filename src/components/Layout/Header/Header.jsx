@@ -1,7 +1,11 @@
 import styles from './Header.module.css';
 import { NavLink } from 'react-router-dom';
+import { useCart } from '../../../context/CartContext';
 
 function Header() {
+    const { getCartQuantity } = useCart();
+    const totalItems = getCartQuantity();
+
     return (
         <header className={styles.header}>
             <div className={styles.brandBlock}>
@@ -28,11 +32,18 @@ function Header() {
                         </NavLink>
                     </li>
 
-                        <li>
+                    <li>
                         <NavLink to="/nosotros" className={({ isActive }) => isActive ? styles.activeLink : ''}>
                             Nosotros
                         </NavLink>
                     </li>
+
+                    <li>
+                        <NavLink to="/carrito" className={({ isActive }) => isActive ? styles.activeLink : ''}>
+                            Carrito 🛒 {totalItems > 0 &&<span>{totalItems}</span>}
+                        </NavLink>
+                    </li>
+
                 </ul>
             </nav>
         </header>

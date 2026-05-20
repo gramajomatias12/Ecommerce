@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ProductoDetalle.css';
+import { useCart } from '../../../context/CartContext';
 
 const ProductoDetalle = () => {
     const { id } = useParams();
@@ -10,6 +11,12 @@ const ProductoDetalle = () => {
     const [esFavorito, setEsFavorito] = useState(false);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
+    const { addToCart } = useCart();
+
+    const handleAddToCart = () => {
+        addToCart(producto, cantidad);
+        alert(`Agregaste ${cantidad} unidades de ${nombre} al carrito.`);
+    };
 
     useEffect(() => {
         fetch('/data/Products.json')
@@ -42,9 +49,9 @@ const ProductoDetalle = () => {
         }
     };
 
-    const agregarAlCarrito = () => {
-        alert(`✅ Agregaste ${cantidad} ${cantidad === 1 ? 'unidad' : 'unidades'} de ${producto.nombre} al carrito`);
-    };
+    // const agregarAlCarrito = () => {
+    //     alert(`✅ Agregaste ${cantidad} ${cantidad === 1 ? 'unidad' : 'unidades'} de ${producto.nombre} al carrito`);
+    // };
 
     const marcarComoFavorito = () => {
         setEsFavorito(!esFavorito);
@@ -138,7 +145,7 @@ const ProductoDetalle = () => {
 
                     {/* Botones de acción */}
                     <div className="acciones">
-                        <button className="btn-comprar" onClick={agregarAlCarrito} disabled={producto.stock === 0}>
+                        <button className="btn-comprar" onClick={handleAddToCart} disabled={producto.stock === 0}>
                             🛒 Agregar al Carrito
                         </button>
                     </div>

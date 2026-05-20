@@ -1,26 +1,36 @@
 import './Product.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useCart } from '../../../context/CartContext';
 
 function Product({ id, imagen, nombre, precio, stock }) {
 
   const [cantidad, setCantidad] = useState(0);
   const [esFavorito, setEsFavorito] = useState(false);
 
+  const { addToCart } = useCart(); // Traemos la función del contexto
+
   const incrementar = () => {
     if (cantidad < stock) {
       setCantidad(cantidad + 1);
     }
   };
+
   const decrementar = () => {
     if (cantidad > 0) {
       setCantidad(cantidad - 1);
     }
   };
+
   const agregarAlCarrito = () => {
+    if (cantidad === 0) {
+      return;
+    }
+
+    addToCart({ id, nombre, precio }, cantidad);
     alert(`✅ Agregaste ${cantidad} ${cantidad === 1 ? 'unidad' : 'unidades'} de ${nombre} al carrito`);
   }
-  
+
   const marcarComoFavorito = () => {
     setEsFavorito(!esFavorito);
   };
@@ -30,7 +40,7 @@ function Product({ id, imagen, nombre, precio, stock }) {
       <img className="tarjeta-producto__imagen" src={imagen} alt={nombre} />
       <div className="tarjeta-producto__nombre-favorito">
         <h3 className="tarjeta-producto__nombre">{nombre}</h3>
-        <span 
+        <span
           className={`tarjeta-producto__btn--favorito ${esFavorito ? 'favorito-activo' : 'favorito-inactivo'}`}
           onClick={marcarComoFavorito}
         >
