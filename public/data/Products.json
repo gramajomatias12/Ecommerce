@@ -2,6 +2,7 @@
     {
         "id": 1,
         "nombre": "Camara Instantánea",
+        "categoria": "Fotografía",
         "precio": 85000,
         "stock": 22,
         "destacado": true,
@@ -11,6 +12,7 @@
     {
         "id": 2,
         "nombre": "Camara Nikon",
+        "categoria": "Fotografía",
         "precio": 97500,
         "stock": 2,
         "destacado": false,
@@ -20,6 +22,7 @@
     {
         "id": 3,
         "nombre": "Monitor Curvo",
+        "categoria": "Monitores",
         "precio": 110000,
         "stock": 2,
         "destacado": true,
@@ -29,6 +32,7 @@
     {
         "id": 4,
         "nombre": "Monitor Asus",
+        "categoria": "Monitores",
         "precio": 95000,
         "stock": 5,
         "destacado": false,
@@ -38,6 +42,7 @@
     {
         "id": 5,
         "nombre": "Mouse Gamer",
+        "categoria": "Periféricos",
         "precio": 18500,
         "stock": 30,
         "destacado": false,
@@ -47,6 +52,7 @@
     {
         "id": 6,
         "nombre": "Notebook Pro",
+        "categoria": "Computadoras",
         "precio": 320000,
         "stock": 8,
         "destacado": true,
@@ -56,6 +62,7 @@
     {
         "id": 7,
         "nombre": "Teclado Mecánico",
+        "categoria": "Periféricos",
         "precio": 45000,
         "stock": 15,
         "destacado": false,
@@ -65,6 +72,7 @@
     {
         "id": 8,
         "nombre": "Windows 11",
+        "categoria": "Software",
         "precio": 12000,
         "stock": 50,
         "destacado": false,

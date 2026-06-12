@@ -38,10 +38,25 @@ export const CartProvider = ({ children }) => {
     const getCartTotal = () => {
         return cart.reduce((acc, item) => acc + item.precio * item.quantity, 0);
     };
+    // NUEVA FUNCIÓN: Obtener la cantidad de un item específico
+    const getCantidadActual = (productId) => {
+        const item = cart.find(item => item.id === productId);
+        return item ? item.quantity : 0;
+    };
+    // NUEVA FUNCIÓN: Eliminar un producto del carrito
+    const removeItem = (productId) => {
+        const updatedCart = cart.filter(item => item.id !== productId);
+        setCart(updatedCart);
+    };
+    // NUEVA FUNCIÓN: Verificar si un producto ya está en el carrito
+    const isInCart = (productId) => {
+        return cart.some(item => item.id === productId);
+    };
+
     return (
         <CartContext.Provider value={{
-            cart, addToCart, clearCart,
-            getCartQuantity, getCartTotal
+            cart, addToCart, clearCart, removeItem, isInCart,
+            getCartQuantity, getCartTotal, getCantidadActual
         }}>
             {children}
         </CartContext.Provider>

@@ -2,13 +2,18 @@ import './Product.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../../context/CartContext';
+import { setIndexConfiguration } from 'firebase/firestore';
 
-function Product({ id, imagen, nombre, precio, stock }) {
-
+function Product({ id, imagen, nombre, precio, stock, idFirebase }) {
+  const producto = { id, nombre, precio, stock, imagen };
   const [cantidad, setCantidad] = useState(0);
   const [esFavorito, setEsFavorito] = useState(false);
 
-  const { addToCart } = useCart(); // Traemos la función del contexto
+  //const { addToCart } = useCart(); 
+  // Traemos la función del contexto
+  const { addToCart, getCantidadActual } = useCart();
+  // Obtenemos la cantidad YA existente en el carrito desde el contexto
+  const cantidadActual = getCantidadActual(producto.id);
 
   const incrementar = () => {
     if (cantidad < stock) {
@@ -27,7 +32,7 @@ function Product({ id, imagen, nombre, precio, stock }) {
       return;
     }
 
-    addToCart({ id, nombre, precio }, cantidad);
+    addToCart(producto, cantidad);
     alert(`✅ Agregaste ${cantidad} ${cantidad === 1 ? 'unidad' : 'unidades'} de ${nombre} al carrito`);
   }
 
@@ -54,11 +59,11 @@ function Product({ id, imagen, nombre, precio, stock }) {
 
       <div className="tarjeta-producto__contador">
         <button className="tarjeta-producto__btn" onClick={decrementar}>-</button>
-        <p className="tarjeta-producto__cantidad">{cantidad}</p>
+        <p className="tarjeta-producto__cantidad">{cantidadActual}</p>
         <button className="tarjeta-producto__btn" onClick={incrementar}>+</button>
       </div>
       <button className="tarjeta-producto__btn--agregar" onClick={agregarAlCarrito}>Agregar al Carrito</button>
-      <Link className="tarjeta-producto__link-detalle" to={`/producto/${id}`}>Ver más info.</Link>
+      <Link className="tarjeta-producto__link-detalle" to={`/producto/${idFirebase}`}>Ver más info.</Link>
     </div>
 
   );

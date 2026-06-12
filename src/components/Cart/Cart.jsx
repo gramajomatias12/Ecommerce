@@ -1,12 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import './Cart.css';
 
 const Cart = () => {
-    const { cart, clearCart, getCartTotal, getCartQuantity } = useCart();
+    const navigate = useNavigate();
+    const { cart, clearCart, getCartTotal, getCartQuantity, removeItem } = useCart();
     const total = getCartTotal();
     const totalProductos = getCartQuantity();
+
+    const handleCheckout = () => {
+        alert('¡Compra finalizada! Gracias por elegirnos.');
+        clearCart();
+        navigate('/');
+    };
 
     if (cart.length === 0) {
         return (
@@ -58,7 +65,12 @@ const Cart = () => {
                     {cart.map(item => (
                         <article key={item.id} className="cart__item-card">
                             <div className="cart__item-main">
-                                <span className="cart__item-badge">Producto #{item.id}</span>
+                                <div className="cart__item-topbar">
+                                    <span className="cart__item-badge">Producto #{item.id}</span>
+                                    <button className="cart__item-remove" onClick={() => removeItem(item.id)} aria-label={`Eliminar ${item.nombre} del carrito`} title="Eliminar producto">
+                                        Eliminar
+                                    </button>
+                                </div>
                                 <h2 className="cart__item-title">{item.nombre}</h2>
                                 <p className="cart__item-meta">Precio unitario: ${item.precio}</p>
                             </div>
@@ -95,6 +107,9 @@ const Cart = () => {
                         </div>
 
                         <div className="cart__actions">
+                            <button className="cart__primary-action cart__primary-action--button" onClick={handleCheckout}>
+                                Finalizar compra
+                            </button>
                             <Link className="cart__primary-action" to="/productos">
                                 Seguir comprando
                             </Link>
