@@ -16,6 +16,7 @@ export const useCart = () => {
 
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
+
     const addToCart = (product, quantity) => {
         const itemInCart = cart.find(item => item.id === product.id);
         if (itemInCart) {
@@ -29,6 +30,7 @@ export const CartProvider = ({ children }) => {
             setCart(prevCart => [...prevCart, { ...product, quantity }]);
         }
     };
+    
     const clearCart = () => {
         setCart([]);
     };

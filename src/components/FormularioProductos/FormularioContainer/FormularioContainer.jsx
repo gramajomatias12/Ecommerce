@@ -1,12 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormularioProducto } from '../FormularioProducto/FormularioProducto';
+import { getFirestore, collection, addDoc, doc, updateDoc } from 'firebase/firestore';
 
-export function FormularioContainer() {
+export function FormularioContainer({ modoEdicion, productoAEditar, onProductoGuardado, onCancelarEdicion }) {
+
+      const estadoInicialForm = {
+            nombre: "",
+            categoria: "",
+            precio: 0,
+            stock: 0,
+            imagen: "",
+            id: 0
+        };
+
     const [datosForm, setDatosForm] = useState({
-        nombre: '',
-        precio: '',
-        stock: ''
+          ...estadoInicialForm
     });
+
+    useEffect(() => {
+        if (productoAEditar) {
+            const { idFirebase, ...productoSinIdFirebase } = productoAEditar;
+            setDatosForm({
+                ...estadoInicialForm,
+                ...productoSinIdFirebase
+            });
+            setImagenFile(null);
+        } else {
+            setDatosForm(estadoInicialForm);
+            setImagenFile(null);
+        }
+    }, [productoAEditar]);
 
     const [imagenFile, setImagenFile] = useState(null);
 
@@ -30,37 +53,61 @@ export function FormularioContainer() {
 
     const manejarEnvio = async (evento) => {
         evento.preventDefault();
-        // Validamos que el usuario haya seleccionado una imagen
-        if (!imagenFile) {
-            alert("Por favor, selecciona una imagen para el producto.");
-            return;
-        }
-        // --- Lógica para subir la imagen a Imgbb ---
-        const apiKey = '7f06b3c4076140cd42f85c76f23a6b76'; // 🚨 ¡Reemplazá esto con tu clave!
-        const formData = new FormData();
-        formData.append('image', imagenFile);
         try {
-            //console.log("Subiendo imagen a Imgbb...");
             manejarLoading(true);
-            const respuestaImgbb = await
-                fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+            let urlImagen = datosForm.imagen;
+
+            if (imagenFile) {
+                const apiKey = '7f06b3c4076140cd42f85c76f23a6b76';
+                const formData = new FormData();
+                formData.append('image', imagenFile);
+
+                const respuestaImgbb = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
                     method: 'POST',
                     body: formData,
                 });
-            const datosImgbb = await respuestaImgbb.json();
-            if (datosImgbb.success) {
-                console.log("Imagen subida con éxito. URL:", datosImgbb.data.url);
-                // Unimos la URL de la imagen con el resto de los datos del formulario
-                const productoCompleto = {
-                    ...datosForm,
-                    // Agregamos la URL obtenida
-                    urlImagen: datosImgbb.data.url
-                };
-                // Por el momento hacemos un console.log
-                console.log('Enviando los siguientes datos COMPLETOS a la API:',
-                    productoCompleto);
+
+                const datosImgbb = await respuestaImgbb.json();
+
+                if (!datosImgbb.success) {
+                    throw new Error('La subida de la imagen a Imgbb falló.');
+                }
+
+                urlImagen = datosImgbb.data.url;
+            } else if (!modoEdicion && !datosForm.imagen) {
+                alert("Por favor, selecciona una imagen para el producto.");
+                return;
+            }
+
+            const productoCompleto = {
+                ...datosForm,
+                id: Number(datosForm.id),
+                precio: Number(datosForm.precio),
+                stock: Number(datosForm.stock),
+                imagen: urlImagen
+            };
+
+            const db = getFirestore();
+            const productosCollection = collection(db, "productos nacionales");
+
+            if (modoEdicion && productoAEditar) {
+                const docRef = doc(db, "productos nacionales", productoAEditar.idFirebase);
+                await updateDoc(docRef, productoCompleto);
+                alert("Producto actualizado con éxito.");
             } else {
-                throw new Error('La subida de la imagen a Imgbb falló.');
+                await addDoc(productosCollection, productoCompleto);
+                alert("Producto agregado con éxito a la base de datos.");
+            }
+
+            setDatosForm(estadoInicialForm);
+            setImagenFile(null);
+
+            if (onProductoGuardado) {
+                await onProductoGuardado();
+            }
+
+            if (onCancelarEdicion) {
+                onCancelarEdicion();
             }
         } catch (error) {
             console.error("Error en el proceso de envío:", error);
@@ -77,6 +124,7 @@ export function FormularioContainer() {
             manejarEnvio={manejarEnvio}
             manejarCambioImagen={manejarCambioImagen}
             loading={loading}
+            modoEdicion={modoEdicion}
         />
     );
 }

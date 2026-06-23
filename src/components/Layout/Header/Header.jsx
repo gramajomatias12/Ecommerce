@@ -27,8 +27,8 @@ function Header() {
                     </li>
                     {/* <li><Link to="/destacados">Destacados</Link></li> */}
                     <li>
-                        <NavLink to="/alta" className={({ isActive }) => isActive ? styles.activeLink : ''}>
-                            Alta de Productos
+                        <NavLink to="/gestion-productos" className={({ isActive }) => isActive ? styles.activeLink : ''}>
+                            Gestión de Productos
                         </NavLink>
                     </li>
 

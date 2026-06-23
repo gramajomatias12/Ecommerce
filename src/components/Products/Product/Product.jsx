@@ -59,11 +59,12 @@ function Product({ id, imagen, nombre, precio, stock, idFirebase }) {
 
       <div className="tarjeta-producto__contador">
         <button className="tarjeta-producto__btn" onClick={decrementar}>-</button>
-        <p className="tarjeta-producto__cantidad">{cantidadActual}</p>
+        <p className="tarjeta-producto__cantidad">{cantidad}</p>
         <button className="tarjeta-producto__btn" onClick={incrementar}>+</button>
       </div>
+      <p>Tenes {cantidadActual} {cantidadActual === 1 ? 'unidad' : 'unidades'} en el carrito</p>
       <button className="tarjeta-producto__btn--agregar" onClick={agregarAlCarrito}>Agregar al Carrito</button>
-      <Link className="tarjeta-producto__link-detalle" to={`/producto/${idFirebase}`}>Ver más info.</Link>
+      <Link className="tarjeta-producto__link-detalle" to={`/producto/${id}`}>Ver más info.</Link>
     </div>
 
   );

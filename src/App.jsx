@@ -7,6 +7,7 @@ import { Routes, Route } from 'react-router-dom';
 import ProductoDetalle from './components/Products/ProductoDetalle/ProductoDetalle';
 import Inicio from './components/Inicio/inicio';
 import Cart from './components/Cart/Cart';
+import GestionProductos from './components/GestionProductos/GestionProductos';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
 
         <Route path="/productos" element={<ProductListContainer Mensaje={"Productos"} />} />
 
-        <Route path="/alta" element={<FormularioContainer />} />
+        <Route path="/gestion-productos" element={<GestionProductos />} />
 
         <Route path="/producto/:id" element={<ProductoDetalle />} />
 

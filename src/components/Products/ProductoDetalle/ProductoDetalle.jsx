@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './ProductoDetalle.css';
 import { useCart } from '../../../context/CartContext';
 import { db } from '../../../firebase/config';
-import { getFirestore, collection, doc, getDoc } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 
 const ProductoDetalle = () => {
     const { id } = useParams();
@@ -17,53 +17,25 @@ const ProductoDetalle = () => {
 
     const handleAddToCart = () => {
         addToCart(producto, cantidad);
-        alert(`Agregaste ${cantidad} unidades de ${nombre} al carrito.`);
+        alert(`Agregaste ${cantidad} unidades de ${producto.nombre} al carrito.`);
     };
 
-    // useEffect(() => {
-    //     fetch('/data/Products.json')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             const productoEncontrado = data.find(p => p.id === parseInt(id));
-    //             if (!productoEncontrado) {
-    //                 setError('Producto no encontrado');
-    //             } else {
-    //                 setProducto(productoEncontrado);
-    //             }
-    //             setCargando(false);
-    //         })
-    //         .catch(error => {
-    //             console.error("Error al cargar el producto:", error);
-    //             setError('Error al cargar el producto');
-    //             setCargando(false);
-    //         });
-    // }, [id]);
-
-    // useEffect(() => {
-    //     const productos = collection(db, 'productos nacionales');
-    //     getDocs(productos).then((resp) => {
-    //         const productoEncontrado = resp.docs.map((doc) => {
-    //             return { id: doc.id, ...doc.data() };
-    //         }).find(p => p.id === id);
-    //         if (!productoEncontrado) {
-    //             setError('Producto no encontrado');
-    //         } else {
-    //             setProducto(productoEncontrado);
-    //         }
-    //     }).catch((error) => {
-    //         setError(error.message);
-    //     }).finally(() => {
-    //         setCargando(false);
-    //     });
-    // }, [id]);
     useEffect(() => {
-        if (id) {
-            // Creamos la referencia al documento
-            const docRef = doc(db, "productos nacionales", id);
-            getDoc(docRef)
+        if (!id) return; 
+            //Para buscar por id de firestore
+            //const docRef = doc(db, "productos nacionales", id);
+            
+            //Buscar por id de firestore usando query
+            const queryID = query(
+                collection(db, "productos nacionales"), 
+                where("id", "==", Number(id))
+            );
+
+            getDocs(queryID)
                 .then((resp) => {
-                    if (resp.exists()) { // Verificamos si el documento existe
-                        setProducto({ ...resp.data(), id: resp.id });
+                    if (!resp.empty) { // Verificamos si el documento existe
+                        const docData = resp.docs[0].data();
+                        setProducto({ ...docData, idFirebase: resp.docs[0].id });
                     } else {
                         setError("No se encontró el producto");
                     }
@@ -71,7 +43,7 @@ const ProductoDetalle = () => {
                 .catch(error => setError(error.message))
                 .finally(() => setCargando(false));
         }
-    }, [id]);
+    , [id]);
 
     const incrementar = () => {
         if (cantidad < producto.stock) {
