@@ -8,6 +8,9 @@ import ProductoDetalle from './components/Products/ProductoDetalle/ProductoDetal
 import Inicio from './components/Inicio/inicio';
 import Cart from './components/Cart/Cart';
 import GestionProductos from './components/GestionProductos/GestionProductos';
+import Login from './components/Login/Login';
+import Registro from './components/Registro/Registro';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
   return (
@@ -17,7 +20,7 @@ function App() {
 
         <Route path="/productos" element={<ProductListContainer Mensaje={"Productos"} />} />
 
-        <Route path="/gestion-productos" element={<GestionProductos />} />
+        <Route path="/gestion-productos" element={<ProtectedRoute><GestionProductos /></ProtectedRoute>} />
 
         <Route path="/producto/:id" element={<ProductoDetalle />} />
 
@@ -26,6 +29,10 @@ function App() {
         <Route path="/ProductosDestacados" element={<ProductListContainer Mensaje={"Productos Destacados"} destacados={true} />} />
 
         <Route path="/carrito" element={<Cart />} />
+
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/registro" element={<Registro />} />
 
         <Route path="*" element={<h2>404 - Página no encontrada</h2>} />
       </Route>

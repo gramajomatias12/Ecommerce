@@ -53,6 +53,12 @@ export function FormularioContainer({ modoEdicion, productoAEditar, onProductoGu
 
     const manejarEnvio = async (evento) => {
         evento.preventDefault();
+        
+        if (datosForm.nombre.trim() === "" || datosForm.precio <= 0 || datosForm.stock < 0) { 
+            alert("Por favor, complete todos los campos y asegúrese de que el precio sea mayor a cero."); 
+            return; 
+        }// Detiene la ejecución de la función 
+
         try {
             manejarLoading(true);
             let urlImagen = datosForm.imagen;

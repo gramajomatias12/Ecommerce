@@ -1,10 +1,13 @@
 import styles from './Header.module.css';
 import { NavLink } from 'react-router-dom';
 import { useCart } from '../../../context/CartContext';
+import { useAuth } from '../../../context/AuthContext';
 
 function Header() {
     const { getCartQuantity } = useCart();
     const totalItems = getCartQuantity();
+    const { user, logout } = useAuth();
+
 
     return (
         <header className={styles.header}>
@@ -15,22 +18,25 @@ function Header() {
 
             <nav className={styles.nav}>
                 <ul className={styles.navList}>
+
                     <li>
                         <NavLink to="/" className={({ isActive }) => isActive ? styles.activeLink : ''}>
                             Inicio
                         </NavLink>
                     </li>
+
                     <li>
                         <NavLink to="/productos" className={({ isActive }) => isActive ? styles.activeLink : ''}>
                             Productos
                         </NavLink>
                     </li>
+
                     {/* <li><Link to="/destacados">Destacados</Link></li> */}
-                    <li>
+                    {/* <li>
                         <NavLink to="/gestion-productos" className={({ isActive }) => isActive ? styles.activeLink : ''}>
                             Gestión de Productos
                         </NavLink>
-                    </li>
+                    </li> */}
 
                     <li>
                         <NavLink to="/nosotros" className={({ isActive }) => isActive ? styles.activeLink : ''}>
@@ -38,9 +44,26 @@ function Header() {
                         </NavLink>
                     </li>
 
+                    {user ? (
+                        <>{/* Mostrar Gestion SOLO si el usuario es admin */}
+                            {user.rol === 'admin' && (
+                                // <li><Link to="/alta" style={{ color: 'black' }}>Gestion</Link></li>)
+                                <li>
+                                    <NavLink to="/gestion-productos" className={({ isActive }) => isActive ? styles.activeLink : ''}>
+                                        Gestión de Productos
+                                    </NavLink>
+                                </li>)}
+                            <span>¡Hola, {user.email}!</span>
+                            <button onClick={logout}>Cerrar Sesión</button>
+                        </>
+                    ) : (
+                        <li><NavLink to="/login" className={({ isActive }) => isActive ? styles.activeLink : ''}>Login</NavLink></li>
+                    )}
+
+
                     <li>
                         <NavLink to="/carrito" className={({ isActive }) => isActive ? styles.activeLink : ''}>
-                            Carrito 🛒 {totalItems > 0 &&<span>{totalItems}</span>}
+                            Carrito 🛒 {totalItems > 0 && <span>{totalItems}</span>}
                         </NavLink>
                     </li>
 
