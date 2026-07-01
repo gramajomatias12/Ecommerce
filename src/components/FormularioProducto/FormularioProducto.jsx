@@ -78,7 +78,7 @@ export function FormularioProducto({ datosForm, manejarCambio, manejarEnvio, man
             </div>
 
             <button type="submit" disabled={loading}>
-                {loading ? 'Guardando...' : modoEdicion ? 'Actualizar Producto' : 'Guardar Producto'}
+                {loading ? 'Procesando...' : modoEdicion ? 'Actualizar Producto' : 'Guardar Producto'}
             </button>
         </form>
     );

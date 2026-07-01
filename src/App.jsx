@@ -2,7 +2,6 @@ import './App.css';
 import { Layout } from './components/Layout/Layout';
 import UserListContainer from './components/Nosotros/UserListContainer/UserListContainer';
 import ProductListContainer from './components/Products/ProductListContainer/ProductListContainer';
-import { FormularioContainer } from './components/FormularioProductos/FormularioContainer/FormularioContainer';
 import { Routes, Route } from 'react-router-dom';
 import ProductoDetalle from './components/Products/ProductoDetalle/ProductoDetalle';
 import Inicio from './components/Inicio/inicio';

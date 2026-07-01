@@ -1,70 +1,81 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import styles from './Registro.module.css';
 
 const Registro = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
+    const [error, setError] = useState('');
     const navigate = useNavigate();
     const auth = getAuth();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError(null); // Reseteamos cualquier error previo
+        setError('');
+
         try {
-            // Intentamos crear el nuevo usuario en Firebase
             await createUserWithEmailAndPassword(auth, email, password);
-            // Si la creación es exitosa, lo redirigimos al inicio
-            // Firebase ya gestiona el estado de sesión automáticamente
             navigate('/');
-        } catch (error) {
-            // Aquí es donde manejamos el caso específico que nos interesa
-            if (error.code === 'auth/email-already-in-use') {
-                // Usamos window.confirm para hacer la pregunta al usuario
+        } catch (authError) {
+            if (authError.code === 'auth/email-already-in-use') {
                 const quiereLoguearse = window.confirm(
                     'Este correo electrónico ya está registrado. ¿Desea intentar iniciar sesión ? '
                 );
                 if (quiereLoguearse) {
-                    // Si el usuario confirma, lo redirigimos a la página de login
                     navigate('/login');
                 } else {
-                    // Si el usuario cancela, lo redirigimos a la página de inicio
                     navigate('/');
                 }
-            } else {// Para cualquier otro error (contraseña débil, email inválido, etc.),
-                // mostramos un mensaje genérico.
+            } else {
                 setError('Ocurrió un error al registrar el usuario. Verifique los datos e intente nuevamente.');
-                console.error("Error en el registro:", error.message);
+                console.error('Error en el registro:', authError.message);
             }
         }
     };
+
     return (
-        <div className="auth-container">
-            <h2>Crear una nueva cuenta</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label>Correo Electrónico</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Contraseña</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        placeholder="Mínimo 6 caracteres"
-                    />
-                </div>
-                {error && <p className="error-message">{error}</p>}
-                <button type="submit">Registrarse</button>
-            </form>
-        </div>
+        <section className={styles.authSection}>
+            <div className={styles.card}>
+                <p className={styles.kicker}>Nuevo usuario</p>
+                <h2 className={styles.title}>Crear una cuenta</h2>
+                <p className={styles.subtitle}>Registrate para comprar más rápido y seguir tus pedidos.</p>
+
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <div className={styles.field}>
+                        <label htmlFor="registro-email">Correo electrónico</label>
+                        <input
+                            id="registro-email"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            placeholder="tuemail@ejemplo.com"
+                        />
+                    </div>
+
+                    <div className={styles.field}>
+                        <label htmlFor="registro-password">Contraseña</label>
+                        <input
+                            id="registro-password"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            placeholder="Mínimo 6 caracteres"
+                        />
+                    </div>
+
+                    {error && <p className={styles.errorMessage}>{error}</p>}
+
+                    <button type="submit" className={styles.submitButton}>Registrarme</button>
+
+                    <p className={styles.helperText}>
+                        ¿Ya tenés cuenta? <Link to="/login">Ingresá aquí</Link>
+                    </p>
+                </form>
+            </div>
+        </section>
     );
 };
 export default Registro;
