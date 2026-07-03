@@ -129,6 +129,15 @@ function Header() {
                                 Gestión de Productos
                             </NavLink>
                         </li>
+                        
+                    )}
+                    {user?.rol === 'admin' && (
+                        
+                        <li>
+                            <NavLink to="/gestion-cupones" className={({ isActive }) => isActive ? styles.activeLink : ''} onClick={closePanels}>
+                                Gestión de Cupones
+                            </NavLink>
+                        </li>
                     )}
 
                     <li>

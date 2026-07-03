@@ -10,6 +10,7 @@ import GestionProductos from './components/GestionProductos/GestionProductos';
 import Login from './components/Login/Login';
 import Registro from './components/Registro/Registro';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import GestionCupones from './components/GestionCupones/GestionCupones';
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
         <Route path="/productos" element={<ProductListContainer Mensaje={"Productos"} />} />
 
         <Route path="/gestion-productos" element={<ProtectedRoute><GestionProductos /></ProtectedRoute>} />
+
+        <Route path="/gestion-cupones" element={<ProtectedRoute><GestionCupones /></ProtectedRoute>} />
 
         <Route path="/producto/:id" element={<ProductoDetalle />} />
 
