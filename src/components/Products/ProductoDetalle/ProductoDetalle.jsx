@@ -27,7 +27,7 @@ const ProductoDetalle = () => {
             
             //Buscar por id de firestore usando query
             const queryID = query(
-                collection(db, "productos nacionales"), 
+                collection(db, "productos"), 
                 where("id", "==", Number(id))
             );
 

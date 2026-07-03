@@ -40,7 +40,7 @@ const GestionProductos = () => {
     };
 
     const cargarProductos = async () => {
-        const productosRef = collection(db, "productos nacionales");
+        const productosRef = collection(db, "productos");
         const resp = await getDocs(productosRef);
 
         setProductos(resp.docs.map((documento) => ({

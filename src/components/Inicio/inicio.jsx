@@ -81,8 +81,7 @@ function Inicio() {
         <h2>¿Listo para comprar?</h2>
         <p>Explora nuestro catálogo completo de productos tecnológicos</p>
         <div className="cta-buttons">
-          <Link to="/productos" className="cta-btn cta-primary">Ver Catálogo</Link>
-          <Link to="/alta" className="cta-btn cta-secondary">Agregar Producto</Link>
+          <Link to="/productos" className="hero-btn">Ver Catálogo</Link>
         </div>
       </section>
     </div>

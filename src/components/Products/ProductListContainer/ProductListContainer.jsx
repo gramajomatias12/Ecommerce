@@ -11,7 +11,7 @@ export function ProductListContainer({ Mensaje, destacados }) {
     const [cargando, setCargando] = useState(true);
 
     useEffect(() => {
-        const productos= collection(db, 'productos nacionales');
+        const productos= collection(db, 'productos');
         getDocs(productos).then((resp) => {
             setProductos(
                 resp.docs.map((doc) => {

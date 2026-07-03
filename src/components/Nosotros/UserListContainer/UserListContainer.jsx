@@ -1,31 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import UserList from '../UserList/UserList';
 import './UserListContainer.css';
+import { db } from '../../../firebase/config';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 export function UserListContainer({ Mensaje }) {
-    const [usuarios, setUsuarios] = useState([]);
+    const [nosotros, setNosotros] = useState([]);
     const [error, setError] = useState(null);
     const [cargando, setCargando] = useState(true);
 
     useEffect(() => {
-        fetch('/data/Nosotros.json')
-            .then((respuesta) => {
-                if (!respuesta.ok) {
-                    throw new Error('No se pudo cargar la información de nosotros');
-                }
-
-                return respuesta.json();
-            })
-            .then((datos) => {
-                setUsuarios(datos);
-            })
-            .catch((detalleError) => {
-                setError(detalleError.message);
-            })
-            .finally(() => {
+            const nosotrosCollection = collection(db, 'nosotros');
+            getDocs(nosotrosCollection).then((resp) => {
+                setNosotros(
+                    resp.docs.map((doc) => {
+                        return {  ...doc.data() , idFirebase: doc.id };
+                    })
+                );
+            }).catch((error) => {
+                setError(error.message);
+            }).finally(() => {
                 setCargando(false);
             });
-    }, []);
+        }, []);
+
 
     if (cargando) {
         return <p className="users-section__status">Cargando información de nosotros, por favor espere...</p>;
@@ -45,7 +43,7 @@ export function UserListContainer({ Mensaje }) {
                 </p>
             </div>
 
-            <UserList usuarios={usuarios} />
+            <UserList usuarios={nosotros} />
         </section>
     );
 }
