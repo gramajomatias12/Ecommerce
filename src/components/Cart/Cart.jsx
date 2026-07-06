@@ -71,8 +71,19 @@ const Cart = () => {
                                         Eliminar
                                     </button>
                                 </div>
-                                <h2 className="cart__item-title">{item.nombre}</h2>
-                                <p className="cart__item-meta">Precio unitario: ${item.precio}</p>
+
+                                <div className="cart__item-producto">
+                                    <img
+                                        className="cart__item-thumb"
+                                        src={item.imagen}
+                                        alt={item.nombre}
+                                        loading="lazy"
+                                    />
+                                    <div className="cart__item-info">
+                                        <h2 className="cart__item-title">{item.nombre}</h2>
+                                        <p className="cart__item-meta">Precio unitario: ${item.precio}</p>
+                                    </div>
+                                </div>
                             </div>
 
                             <div className="cart__item-grid">

@@ -13,11 +13,24 @@ const ProductoDetalle = () => {
     const [esFavorito, setEsFavorito] = useState(false);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
-    const { addToCart } = useCart();
+    const { addToCart, getCantidadActual } = useCart();
+
+    const cantidadEnCarrito = producto ? getCantidadActual(producto.id) : 0;
+    const stockNumerico = Number(producto?.stock) || 0;
+    const stockRestante = Math.max(stockNumerico - cantidadEnCarrito, 0);
+    const textoUnidades = (valor) => (valor === 1 ? 'unidad' : 'unidades');
 
     const handleAddToCart = () => {
+        if (!producto || cantidad <= 0) return;
+
+        if (cantidad > stockRestante) {
+            alert(`⚠️ Solo quedan ${stockRestante} ${textoUnidades(stockRestante)} disponibles`);
+            return;
+        }
+
         addToCart(producto, cantidad);
-        alert(`Agregaste ${cantidad} unidades de ${producto.nombre} al carrito.`);
+        alert(`✅ Agregaste ${cantidad} ${textoUnidades(cantidad)} de ${producto.nombre} al carrito`);
+        setCantidad(0);
     };
 
     useEffect(() => {
@@ -45,8 +58,19 @@ const ProductoDetalle = () => {
         }
     , [id]);
 
+    useEffect(() => {
+        if (!producto) return;
+
+        setCantidad(prev => {
+            if (stockRestante === 0) return 0;
+            if (prev <= 0) return 1;
+            if (prev > stockRestante) return stockRestante;
+            return prev;
+        });
+    }, [producto, stockRestante]);
+
     const incrementar = () => {
-        if (cantidad < producto.stock) {
+        if (cantidad < stockRestante) {
             setCantidad(cantidad + 1);
         }
     };
@@ -57,9 +81,6 @@ const ProductoDetalle = () => {
         }
     };
 
-    // const agregarAlCarrito = () => {
-    //     alert(`✅ Agregaste ${cantidad} ${cantidad === 1 ? 'unidad' : 'unidades'} de ${producto.nombre} al carrito`);
-    // };
 
     const marcarComoFavorito = () => {
         setEsFavorito(!esFavorito);
@@ -131,13 +152,19 @@ const ProductoDetalle = () => {
 
                     {/* Stock */}
                     <div className="stock-info">
-                        {producto.stock > 0 ? (
+                        {stockRestante > 0 ? (
                             <>
                                 <span className="stock-disponible">✓ En Stock</span>
-                                <span className="stock-cantidad">({producto.stock} disponibles)</span>
+                                <span className="stock-cantidad">({stockRestante} disponibles)</span>
+                                <span className="stock-cantidad">({cantidadEnCarrito} en tu carrito)</span>
                             </>
                         ) : (
-                            <span className="sin-stock">✗ Agotado</span>
+                            <>
+                                <span className="sin-stock">✗ Agotado</span>
+                                {cantidadEnCarrito > 0 && (
+                                    <span className="stock-cantidad">({cantidadEnCarrito} en tu carrito)</span>
+                                )}
+                            </>
                         )}
                     </div>
 
@@ -147,13 +174,13 @@ const ProductoDetalle = () => {
                         <div className="contador">
                             <button className="btn-cantidad" onClick={decrementar} disabled={cantidad <= 1}>−</button>
                             <input type="number" value={cantidad} readOnly className="cantidad-input" />
-                            <button className="btn-cantidad" onClick={incrementar} disabled={cantidad >= producto.stock}>+</button>
+                            <button className="btn-cantidad" onClick={incrementar} disabled={stockRestante === 0 || cantidad >= stockRestante}>+</button>
                         </div>
                     </div>
 
                     {/* Botones de acción */}
                     <div className="acciones">
-                        <button className="btn-comprar" onClick={handleAddToCart} disabled={producto.stock === 0}>
+                        <button className="btn-comprar" onClick={handleAddToCart} disabled={stockRestante === 0 || cantidad === 0}>
                             🛒 Agregar al Carrito
                         </button>
                     </div>

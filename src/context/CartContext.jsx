@@ -18,17 +18,27 @@ export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
 
     const addToCart = (product, quantity) => {
-        const itemInCart = cart.find(item => item.id === product.id);
-        if (itemInCart) {
-            const updatedCart = cart.map(item =>
-                item.id === product.id
-                    ? { ...item, quantity: item.quantity + quantity }
-                    : item
-            );
-            setCart(updatedCart);
-        } else {
-            setCart(prevCart => [...prevCart, { ...product, quantity }]);
-        }
+        if (quantity <= 0) return;
+
+        setCart(prevCart => {
+            const itemInCart = prevCart.find(item => item.id === product.id);
+            const cantidadActual = itemInCart ? itemInCart.quantity : 0;
+            const stockProducto = Number(product.stock) || 0;
+            const cantidadDisponible = Math.max(stockProducto - cantidadActual, 0);
+            const cantidadAAgregar = Math.min(quantity, cantidadDisponible);
+
+            if (cantidadAAgregar === 0) return prevCart;
+
+            if (itemInCart) {
+                return prevCart.map(item =>
+                    item.id === product.id
+                        ? { ...item, quantity: item.quantity + cantidadAAgregar }
+                        : item
+                );
+            }
+
+            return [...prevCart, { ...product, quantity: cantidadAAgregar }];
+        });
     };
     
     const clearCart = () => {
