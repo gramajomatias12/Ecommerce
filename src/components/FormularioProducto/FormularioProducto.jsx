@@ -25,6 +25,25 @@ export function FormularioProducto({ datosForm, manejarCambio, manejarEnvio, man
                     onChange={manejarCambio}
                 />
             </div>
+            <div>
+                <label>Detalle:</label>
+                <textarea
+                    placeholder="Ej: Monitor curvo de 27'' con panel IPS y 165Hz"
+                    name="detalle"
+                    value={datosForm.detalle ?? ""}
+                    onChange={manejarCambio}
+                    rows={4}
+                />
+            </div>
+            <div className="checkbox-row">
+                <input
+                    type="checkbox"
+                    name="destacado"
+                    checked={Boolean(datosForm.destacado)}
+                    onChange={manejarCambio}
+                />
+                <label>Producto destacado</label>
+            </div>
             <div className="form-grid">
                 <div>
                     <label>ID</label>

@@ -11,6 +11,8 @@ const GestionProductos = () => {
     const estadoInicialForm = {
         nombre: "",
         categoria: "",
+        detalle: "",
+        destacado: false,
         precio: 0,
         stock: 0,
         imagen: "",
@@ -24,10 +26,10 @@ const GestionProductos = () => {
     const [loading, setLoading] = useState(false);
 
     const manejarCambio = (evento) => {
-        const { name, value } = evento.target;
+        const { name, value, type, checked } = evento.target;
         setDatosForm({
             ...datosForm,
-            [name]: value
+            [name]: type === "checkbox" ? checked : value
         });
     };
 
@@ -57,7 +59,7 @@ const GestionProductos = () => {
     const handleDelete = async (idFirebase) => {
         const confirmacion = window.confirm("¿Está seguro de que desea eliminar este producto ? ");
         if (confirmacion) {
-            const docRef = doc(db, "productos nacionales", idFirebase);
+            const docRef = doc(db, "productos", idFirebase);
             await deleteDoc(docRef);
             // Actualizamos el estado local para reflejar el cambio en la UI inmediatamente.
             setProductos(productos.filter((prod) => prod.idFirebase !== idFirebase));
@@ -117,13 +119,14 @@ const GestionProductos = () => {
                 id: Number(datosForm.id),
                 precio: Number(datosForm.precio),
                 stock: Number(datosForm.stock),
+                destacado: Boolean(datosForm.destacado),
                 imagen: urlImagen
             };
 
-            const productosCollection = collection(db, "productos nacionales");
+            const productosCollection = collection(db, "productos");
 
             if (modoEdicion && productoAEditar) {
-                const docRef = doc(db, "productos nacionales", productoAEditar.idFirebase);
+                const docRef = doc(db, "productos", productoAEditar.idFirebase);
                 await updateDoc(docRef, productoCompleto);
                 alert("Producto actualizado con éxito.");
             } else {
@@ -173,11 +176,18 @@ const GestionProductos = () => {
             <ul className={styles.list}>
                 {productos.map((prod) => (
                     <li key={prod.idFirebase} className={styles.item}>
-                        <div className={styles.itemInfo}>
-                            <p className={styles.itemName}>{prod.nombre}</p>
-                            <p className={styles.itemMeta}>
-                                {prod.categoria} · Stock: {prod.stock} · Precio: $ {prod.precio}
-                            </p>
+                        <div className={styles.itemMain}>
+                            <img
+                                className={styles.itemImage}
+                                src={prod.imagen || "https://placehold.co/80x80?text=Sin+img"}
+                                alt={prod.nombre}
+                            />
+                            <div className={styles.itemInfo}>
+                                <p className={styles.itemName}>{prod.nombre}</p>
+                                <p className={styles.itemMeta}>
+                                    {prod.categoria} · Stock: {prod.stock} · Precio: $ {prod.precio}
+                                </p>
+                            </div>
                         </div>
 
                         <div className={styles.itemActions}>
